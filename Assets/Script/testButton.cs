@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class testButton : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class testButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     // Update is called once per frame
