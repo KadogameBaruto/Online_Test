@@ -18,9 +18,9 @@ public class Login : MonoBehaviourPunCallbacks
     {
         count = c;
     }
-    public string getCount()
+    public int getCount()
     {
-        return count.ToString();
+        return count;
     }
     // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
     public override void OnPlayerEnteredRoom(Player newPlayer)

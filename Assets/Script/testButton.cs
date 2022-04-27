@@ -21,7 +21,7 @@ public class testButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        countText.text = Login.Instance.getCount();
+        countText.text = Login.Instance.getCount().ToString();
     }
 
     public void OnClick()
