@@ -26,8 +26,15 @@ public class testButton : MonoBehaviour
 
     public void OnClick()
     {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("Reset", RpcTarget.MasterClient);
+    }
+    [PunRPC]
+    void Reset()
+    {
         Login.Instance.resetCount();
     }
+
 
     void Awake()
     {
