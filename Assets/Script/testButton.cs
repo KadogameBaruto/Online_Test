@@ -21,14 +21,14 @@ public class testButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        countText.text = count++.ToString();
+        countText.text = Login.Instance.getCount();
     }
 
     public void OnClick()
     {
-        count = 0;
-
+        Login.Instance.resetCount();
     }
+
     void Awake()
     {
         this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);

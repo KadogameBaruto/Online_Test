@@ -6,16 +6,38 @@ using Photon.Realtime;
 
 public class Login : MonoBehaviourPunCallbacks
 {
+    public static Login Instance;
+
+    private int count;
+
+    public void resetCount()
+    {
+        count = 0;
+    }
+    public string getCount()
+    {
+        return count.ToString();
+    }
+    // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        count = 20000;
+    }
     // Start is called before the first frame update
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        Instance = this;
     }
 
     void OnGUI()
     {
         //ログインの状態を画面上に出力
-        GUILayout.Label(PhotonNetwork.NetworkClientState.ToString());
+        GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
+            PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
+            PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" 
+
+            );
     }
 
 
@@ -40,6 +62,6 @@ public class Login : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        
+        count++;
     }
 }
