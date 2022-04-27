@@ -6,24 +6,14 @@ public class Synchronizer : MonoBehaviourPunCallbacks, IPunObservable
 {
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if ( PhotonNetwork.LocalPlayer.IsMasterClient)
+        if (stream.IsWriting)
         {
-            if (stream.IsWriting)
-            {
-                // Transformの値をストリームに書き込んで送信する
-                stream.SendNext(Login.Instance.getCount());
-            }
-            else
-            {
-                Login.Instance.setCount((int)stream.ReceiveNext());
-            }
+            // Transformの値をストリームに書き込んで送信する
+            stream.SendNext(Login.Instance.getCount());
         }
         else
         {
-            if (!stream.IsWriting)
-            {
-                Login.Instance.setCount((int)stream.ReceiveNext());
-            }
+            Login.Instance.setCount((int)stream.ReceiveNext());
         }
     }
 

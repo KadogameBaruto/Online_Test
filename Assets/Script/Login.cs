@@ -59,7 +59,8 @@ public class Login : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            Vector3 spawnPosition = new Vector3(0, new System.Random().Next(0, 500), 0); //ê∂ê¨à íu
+            System.Random r = new System.Random();
+            Vector3 spawnPosition = new Vector3(r.Next(0, 500), r.Next(0, 500), 0); //ê∂ê¨à íu
 
             GameObject image = PhotonNetwork.Instantiate("MyImage", spawnPosition, Quaternion.identity, 0);
         }
