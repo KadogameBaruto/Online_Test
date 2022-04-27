@@ -14,6 +14,10 @@ public class Login : MonoBehaviourPunCallbacks
     {
         count = 0;
     }
+    public void setCount(int c)
+    {
+        count = c;
+    }
     public string getCount()
     {
         return count.ToString();
@@ -52,9 +56,13 @@ public class Login : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         //キャラクターを生成
-        Vector3 spawnPosition = new Vector3(0, new System.Random().Next(0,500), 0); //生成位置
 
-        GameObject image = PhotonNetwork.Instantiate("MyImage", spawnPosition, Quaternion.identity, 0);
+        if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            Vector3 spawnPosition = new Vector3(0, new System.Random().Next(0, 500), 0); //生成位置
+
+            GameObject image = PhotonNetwork.Instantiate("MyImage", spawnPosition, Quaternion.identity, 0);
+        }
         ////自分だけが操作できるようにスクリプトを有効にする
         //MonsterScript monsterScript = monster.GetComponent<MonsterScript>();
         //monsterScript.enabled = true;
