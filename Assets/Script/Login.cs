@@ -25,7 +25,7 @@ public class Login : MonoBehaviourPunCallbacks
     // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        count = 20000;
+        //count = 20000;
     }
     // Start is called before the first frame update
     void Start()
@@ -73,6 +73,9 @@ public class Login : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        count++;
+        if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            count++;
+        }
     }
 }
