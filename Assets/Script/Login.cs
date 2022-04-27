@@ -30,7 +30,7 @@ public class Login : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         //キャラクターを生成
-        //GameObject monster = PhotonNetwork.Instantiate("monster", Vector3.zero, Quaternion.identity, 0);
+        GameObject image = PhotonNetwork.Instantiate("MyImage", Vector3.zero, Quaternion.identity, 0);
         ////自分だけが操作できるようにスクリプトを有効にする
         //MonsterScript monsterScript = monster.GetComponent<MonsterScript>();
         //monsterScript.enabled = true;

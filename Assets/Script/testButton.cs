@@ -7,20 +7,21 @@ using Photon.Realtime;
 
 public class testButton : MonoBehaviour
 {
-    public Text a;
+    public Text countText;
 
-    private int count;
+    private static int count;
 
     // Start is called before the first frame update
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        a.text = count++.ToString();
+        countText.text = count++.ToString();
     }
 
     public void OnClick()
@@ -28,6 +29,9 @@ public class testButton : MonoBehaviour
         count = 0;
 
     }
-
+    void Awake()
+    {
+        this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
+    }
 
 }
