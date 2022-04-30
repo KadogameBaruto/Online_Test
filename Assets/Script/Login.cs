@@ -6,6 +6,9 @@ using Photon.Realtime;
 
 public class Login : MonoBehaviourPunCallbacks
 {
+    private GameObject player;
+
+
     public static Login Instance;
 
     private int count;
@@ -36,12 +39,13 @@ public class Login : MonoBehaviourPunCallbacks
 
     void OnGUI()
     {
-        //ログインの状態を画面上に出力
-        GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
-            PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
-            PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" 
+        ////ログインの状態を画面上に出力
+        //GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
+        //    PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
+        //    PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" 
 
-            );
+        //    );
+
     }
 
 
@@ -55,25 +59,26 @@ public class Login : MonoBehaviourPunCallbacks
     //ルームに入室後に呼び出される
     public override void OnJoinedRoom()
     {
-        //キャラクターを生成
+        //if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    System.Random r = new System.Random();
+        //    Vector3 spawnPosition = new Vector3(r.Next(0, 400), r.Next(0, 400), 0); //生成位置
 
-        if(PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            System.Random r = new System.Random();
-            Vector3 spawnPosition = new Vector3(r.Next(0, 400), r.Next(0, 400), 0); //生成位置
+        //    GameObject image = PhotonNetwork.Instantiate("MyImage", spawnPosition, Quaternion.identity, 0);
+        //}
 
-            GameObject image = PhotonNetwork.Instantiate("MyImage", spawnPosition, Quaternion.identity, 0);
-        }
-        ////自分だけが操作できるようにスクリプトを有効にする
-        //MonsterScript monsterScript = monster.GetComponent<MonsterScript>();
-        //monsterScript.enabled = true;
+        //プレイヤーを生成
+        player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+
+        CardManager.Instance.CreateCard();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if(PhotonNetwork.LocalPlayer.IsMasterClient)
+
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             count++;
         }
