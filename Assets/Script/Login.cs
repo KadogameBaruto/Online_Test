@@ -35,16 +35,20 @@ public class Login : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.ConnectUsingSettings();
         Instance = this;
+
+        PhotonNetwork.SendRate = 20; // 1秒間にメッセージ送信を行う回数
+        PhotonNetwork.SerializationRate = 10; // 1秒間にオブジェクト同期を行う回数
     }
 
     void OnGUI()
     {
-        ////ログインの状態を画面上に出力
-        //GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
-        //    PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
-        //    PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" 
+        //ログインの状態を画面上に出力
+        GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
+            PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
+            PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" +
+            CardManager.Instance.mCoolTime + "\r\n"
 
-        //    );
+            );
 
     }
 
@@ -71,6 +75,8 @@ public class Login : MonoBehaviourPunCallbacks
         player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
 
         CardManager.Instance.CreateCard();
+
+
     }
 
 

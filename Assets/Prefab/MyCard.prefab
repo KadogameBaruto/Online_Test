@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID_Text: {fileID: 743720722537696790}
+  cardImage: {fileID: 4195636819799142882}
+  mIsSelected: 0
   CanGroup: {fileID: 4209757230690330891}
 --- !u!114 &6994357791386526889
 MonoBehaviour:

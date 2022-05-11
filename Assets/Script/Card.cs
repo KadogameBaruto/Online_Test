@@ -9,6 +9,12 @@ public class Card : MonoBehaviour
 
     public Text ID_Text;
 
+    public RawImage cardImage;
+    
+    // 選択されているか判定
+    //private bool mIsSelected = false;
+    public bool mIsSelected = false;
+
     // 透過処理用
     public CanvasGroup CanGroup;
 
@@ -24,19 +30,54 @@ public class Card : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// 選択された時の処理
+    /// </summary>
     public void OnClick()
     {
-        Debug.Log(this.ID);
-        
-        if(CardManager.Instance.SelectID == -1)
+        // カードが表面になっていた場合は無効
+        if (this.mIsSelected || CardManager.Instance.mCoolTime != 0 || CardManager.Instance.SelectID != -1)
         {
-            CardManager.Instance.SelectID = this.ID;
+            return;
         }
+
+        // 選択判定フラグを有効にする
+        this.mIsSelected = true;
+
+        CardManager.Instance.SelectID = this.ID;
     }
 
     public void SetID(int id)
     {
         this.ID = id;
-        ID_Text.text = id.ToString();
+        ID_Text.text = "";
     }
+    ///  <summary>
+    /// カードを背面表記にする
+    /// </summary>
+    public void SetHide()
+    {
+        // 選択判定フラグを初期化する
+        this.mIsSelected = false;
+
+        // カードを背面表示にする
+        //this.CardImage.sprite = Ura;
+
+        cardImage.color = Color.white;
+        ID_Text.text = "";
+
+    }
+
+    /// <summary>
+    /// カードを非表示にする
+    /// </summary>
+    public void SetInvisible()
+    {
+        // 選択済設定にする
+        this.mIsSelected = true;
+
+        // アルファ値を0に設定 (非表示)
+        this.CanGroup.alpha = 0;
+    }
+
 }

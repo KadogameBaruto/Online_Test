@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Photon.Pun;
 
 public class CardManager : MonoBehaviour
 {
@@ -16,30 +16,39 @@ public class CardManager : MonoBehaviour
     // 生成したカードオブジェクトを保存する
     private List<Card> CardList = new List<Card>();
 
+    // シングルトンの生成
     public static CardManager Instance;
+    
+    // 選択されたカードIDリスト
+    public List<int> SelectedCardIdList = new List<int>();
 
     //
     public int SelectID = -1;
+
+
+    // クールタイム
+    public float mCoolTime = 0;
+
+    //カード最大枚数
+    private const int CARD_MAX_SIZE = 32;
 
     // Start is called before the first frame update
     void Start()
     {
         // カードオブジェクトを生成する
-        for (int i = 0; i < 16; i++)
+        List<int> RandomIDList = Enumerable.Range(0, CARD_MAX_SIZE).Select(i => i).OrderBy(i => System.Guid.NewGuid()).ToList();
+        for (int i = 0; i < CARD_MAX_SIZE; i++)
         {
             // Instantiate で Cardオブジェクトを生成
             Card card = (Card)Instantiate(this.CardPrefab, this.CardParent);
 
             // データを設定する
-            card.SetID(i);
+            card.SetID(RandomIDList[i]);
 
             // 生成したカードオブジェクトを保存する
             this.CardList.Add(card);
-
-            Debug.Log(i);
         }
-
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -51,19 +60,54 @@ public class CardManager : MonoBehaviour
         
     }
 
-    public void HideCardList(int ID)
+    public void HideCardList(List<int> containCardIdList)
     {
         foreach (var _card in this.CardList)
         {
-            if (_card.ID == ID)
+            // 既に獲得したカードIDの場合、非表示にする
+            if (containCardIdList.Contains(_card.ID))
             {
                 _card.CanGroup.alpha = 0;
             }
-
+            // 獲得していないカードは裏面表示にする
+            else
+            {
+                // カードを裏面表示にする
+                _card.SetHide();
+                Debug.Log(_card.ID);
+                _card.mIsSelected = false;
+            }
         }
     }
 
+    public void ReverseCardList(List<int> containCardIdList)
+    {
+        foreach (var _card in this.CardList)
+        {
+            if (containCardIdList.Contains(_card.ID))
+            {
+                _card.ID_Text.text = _card.ID.ToString();
+                _card.cardImage.color = Color.red;
+            }
+        }
+    }
 
+    public bool CheckReverseCard(out List<int> selectIDList)
+    {
+        if (SelectedCardIdList.Count == 2 && isMatchID(SelectedCardIdList[0], SelectedCardIdList[1]))
+        {
+            selectIDList = new List<int> { SelectedCardIdList[0], SelectedCardIdList[1] };
+            return true;
+        }
+
+        selectIDList = new List<int> { -1 };
+        return false;
+    }
+
+    private bool isMatchID(int a, int b)
+    {
+        return a % (CARD_MAX_SIZE / 2) == b % (CARD_MAX_SIZE / 2);
+    }
 
     public void CreateCard()
     {

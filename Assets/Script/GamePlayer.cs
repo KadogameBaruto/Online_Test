@@ -35,7 +35,7 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
             //CardManager.Instance.HideCardList(CardManager.Instance.SelectID);
 
             PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("HideCardList2", RpcTarget.All, CardManager.Instance.SelectID);
+            photonView.RPC("HideCardList2", RpcTarget.AllViaServer, CardManager.Instance.SelectID);
 
             CardManager.Instance.SelectID = -1;
 
@@ -50,7 +50,10 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void HideCardList2(int ID)
     {
-        CardManager.Instance.HideCardList(ID);
+        //CardManager.Instance.HideCardList(ID);
+
+        // ‘I‘ð‚µ‚½CardId‚ð•Û‘¶
+        CardManager.Instance.SelectedCardIdList.Add(ID);
     }
 
     void OnGUI()
