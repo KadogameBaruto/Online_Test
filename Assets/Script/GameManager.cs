@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     // カード生成マネージャクラス
     public CardManager CardCeator;
 
+    //表の枚数
     private int OmoteCount = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
             {
                 CardManager.Instance.mCoolTime = 0;
                 // カードを裏返す
-                this.CardCeator.HideCardList(this.mContainCardIdList);
+                this.CardCeator.HideCards(this.mContainCardIdList);
             }
             else
             {
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
         if(OmoteCount != CardManager.Instance.SelectedCardIdList.Count)
         {
             // カードを表返す
-            this.CardCeator.ReverseCardList(CardManager.Instance.SelectedCardIdList);
+            this.CardCeator.OpenCards(CardManager.Instance.SelectedCardIdList);
 
             OmoteCount = CardManager.Instance.SelectedCardIdList.Count;
         }
@@ -52,8 +54,18 @@ public class GameManager : MonoBehaviour
             // 2枚目にあったカードと一緒だったら
             if (CardManager.Instance.CheckReverseCard(out selectIDList))
             {
+                //カードが一致した場合
                 // 一致したカードIDを保存する
                 this.mContainCardIdList.AddRange(selectIDList);
+
+                GamePlayer.Instance.AddPoint(100);
+
+            }
+            else
+            {
+                //カードが一致しなかった場合
+                GamePlayer.Instance.GoNextTurnPlayer();
+
             }
             
             CardManager.Instance.mCoolTime = 1.0f;

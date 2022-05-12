@@ -6,9 +6,6 @@ using Photon.Realtime;
 
 public class Login : MonoBehaviourPunCallbacks
 {
-    private GameObject player;
-
-
     public static Login Instance;
 
     private int count;
@@ -42,13 +39,13 @@ public class Login : MonoBehaviourPunCallbacks
 
     void OnGUI()
     {
-        //ログインの状態を画面上に出力
-        GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
-            PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
-            PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" +
-            CardManager.Instance.mCoolTime + "\r\n"
+        ////ログインの状態を画面上に出力
+        //GUILayout.Label(PhotonNetwork.NetworkClientState.ToString() + "\r\n" +
+        //    PhotonNetwork.LocalPlayer.ActorNumber + "\r\n" +
+        //    PhotonNetwork.LocalPlayer.IsMasterClient + "\r\n" +
+        //    CardManager.Instance.mCoolTime + "\r\n"
 
-            );
+        //    );
 
     }
 
@@ -71,10 +68,16 @@ public class Login : MonoBehaviourPunCallbacks
         //    GameObject image = PhotonNetwork.Instantiate("MyImage", spawnPosition, Quaternion.identity, 0);
         //}
 
-        //プレイヤーを生成
-        player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var hashTable = new ExitGames.Client.Photon.Hashtable();
+            hashTable["TurnPlayerID"] = PhotonNetwork.LocalPlayer.ActorNumber;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
+        }
 
-        CardManager.Instance.CreateCard();
+        //プレイヤーを生成
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
+
 
 
     }
@@ -84,9 +87,9 @@ public class Login : MonoBehaviourPunCallbacks
     void Update()
     {
 
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            count++;
-        }
+        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    count++;
+        //}
     }
 }

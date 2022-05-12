@@ -36,7 +36,10 @@ public class Card : MonoBehaviour
     public void OnClick()
     {
         // カードが表面になっていた場合は無効
-        if (this.mIsSelected || CardManager.Instance.mCoolTime != 0 || CardManager.Instance.SelectID != -1)
+        if (this.mIsSelected ||
+            CardManager.Instance.mCoolTime != 0 || 
+            CardManager.Instance.SelectID != -1 ||
+            GamePlayer.Instance.IsMyTurn() == false)
         {
             return;
         }
@@ -45,6 +48,8 @@ public class Card : MonoBehaviour
         this.mIsSelected = true;
 
         CardManager.Instance.SelectID = this.ID;
+
+        GamePlayer.Instance.AddPoint(-10);
     }
 
     public void SetID(int id)

@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 19b10f3453d25cf47bbf8761a1fd14ca, type: 2}
+  m_sharedMaterial: {fileID: -6617108207666785944, guid: 19b10f3453d25cf47bbf8761a1fd14ca, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721ae2afeebdcbe428a8085eba23b563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardPrefab: {fileID: 1034071309340398448, guid: f5b7b2715d0e3cf49ba6e21829d98f6e, type: 3}
+  CardPrefab: {fileID: 3330510865183234623, guid: f5b7b2715d0e3cf49ba6e21829d98f6e, type: 3}
   CardParent: {fileID: 1243472148}
   SelectedCardIdList: 
   SelectID: -1

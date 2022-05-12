@@ -60,7 +60,8 @@ public class CardManager : MonoBehaviour
         
     }
 
-    public void HideCardList(List<int> containCardIdList)
+
+    public void HideCards(List<int> containCardIdList)
     {
         foreach (var _card in this.CardList)
         {
@@ -74,19 +75,19 @@ public class CardManager : MonoBehaviour
             {
                 // カードを裏面表示にする
                 _card.SetHide();
-                Debug.Log(_card.ID);
                 _card.mIsSelected = false;
             }
         }
     }
 
-    public void ReverseCardList(List<int> containCardIdList)
+    //カードを表返す処理
+    public void OpenCards(List<int> containCardIdList)
     {
         foreach (var _card in this.CardList)
         {
             if (containCardIdList.Contains(_card.ID))
             {
-                _card.ID_Text.text = _card.ID.ToString();
+                _card.ID_Text.text = (_card.ID % (CARD_MAX_SIZE / 2)).ToString();
                 _card.cardImage.color = Color.red;
             }
         }
