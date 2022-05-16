@@ -25,7 +25,12 @@ public class Login : MonoBehaviourPunCallbacks
     // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        //count = 20000;
+        GamePlayer.Instance.ShowFieldInfo(GamePlayer.Instance.MakeFieldInfoString());
+    }
+    // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
+    public override void OnPlayerLeftRoom(Player newPlayer)
+    {
+        GamePlayer.Instance.ShowFieldInfo(GamePlayer.Instance.MakeFieldInfoString());
     }
     // Start is called before the first frame update
     void Start()
@@ -91,5 +96,20 @@ public class Login : MonoBehaviourPunCallbacks
         //{
         //    count++;
         //}
+    }
+
+
+
+    public string GetPlayersStr()
+    {
+        string str="{";
+        Player[] player = PhotonNetwork.PlayerList;
+        for (int i = 0; i < player.Length -1; i++)
+        {
+            str += player[i].ActorNumber.ToString() + ",";
+        }
+        str += player[player.Length-1].ActorNumber.ToString()+"}";
+
+        return str;
     }
 }

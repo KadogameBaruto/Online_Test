@@ -25,19 +25,42 @@ public class CardManager : MonoBehaviour
     //
     public int SelectID = -1;
 
+    //定義済み色リスト
+    public List<Color> DefineColorList = new List<Color>();
+
 
     // クールタイム
     public float mCoolTime = 0;
 
     //カード最大枚数
-    private const int CARD_MAX_SIZE = 32;
+    public readonly int cardMaxSize = 32;
 
     // Start is called before the first frame update
     void Start()
     {
+        DefineColorList.Add(new Color(1.0f, 1.0f, 0.0f, 1.0f));
+        DefineColorList.Add(new Color(1.0f, 0.0f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 1.0f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 0.0f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 1.0f, 0.0f, 1.0f));
+        DefineColorList.Add(new Color(1.0f, 0.0f, 0.0f, 1.0f));
+
+        DefineColorList.Add(new Color(0.5f, 0.5f, 0.0f, 1.0f));
+        DefineColorList.Add(new Color(0.5f, 0.0f, 0.5f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 0.5f, 0.5f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 0.0f, 0.5f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 0.5f, 0.0f, 1.0f));
+        DefineColorList.Add(new Color(0.5f, 0.0f, 0.0f, 1.0f));
+
+        DefineColorList.Add(new Color(1.0f, 1.0f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.66f, 0.66f, 0.66f, 1.0f));
+        DefineColorList.Add(new Color(0.33f, 0.33f, 0.33f, 1.0f));
+        DefineColorList.Add(new Color(0.0f, 0.0f, 0.0f, 1.0f));
+
+
         // カードオブジェクトを生成する
-        List<int> RandomIDList = Enumerable.Range(0, CARD_MAX_SIZE).Select(i => i).OrderBy(i => System.Guid.NewGuid()).ToList();
-        for (int i = 0; i < CARD_MAX_SIZE; i++)
+        List<int> RandomIDList = Enumerable.Range(0, cardMaxSize).Select(i => i).OrderBy(i => System.Guid.NewGuid()).ToList();
+        for (int i = 0; i < cardMaxSize; i++)
         {
             // Instantiate で Cardオブジェクトを生成
             Card card = (Card)Instantiate(this.CardPrefab, this.CardParent);
@@ -75,7 +98,6 @@ public class CardManager : MonoBehaviour
             {
                 // カードを裏面表示にする
                 _card.SetHide();
-                _card.mIsSelected = false;
             }
         }
     }
@@ -87,8 +109,7 @@ public class CardManager : MonoBehaviour
         {
             if (containCardIdList.Contains(_card.ID))
             {
-                _card.ID_Text.text = (_card.ID % (CARD_MAX_SIZE / 2)).ToString();
-                _card.cardImage.color = Color.red;
+                _card.OpenCard();
             }
         }
     }
@@ -101,13 +122,13 @@ public class CardManager : MonoBehaviour
             return true;
         }
 
-        selectIDList = new List<int> { -1 };
+        selectIDList = null;
         return false;
     }
 
     private bool isMatchID(int a, int b)
     {
-        return a % (CARD_MAX_SIZE / 2) == b % (CARD_MAX_SIZE / 2);
+        return a % (cardMaxSize / 2) == b % (cardMaxSize / 2);
     }
 
     public void CreateCard()

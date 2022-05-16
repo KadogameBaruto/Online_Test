@@ -9,7 +9,11 @@ public class Card : MonoBehaviour
 
     public Text ID_Text;
 
+    public Color color;
+
     public RawImage cardImage;
+
+
     
     // 選択されているか判定
     //private bool mIsSelected = false;
@@ -17,6 +21,21 @@ public class Card : MonoBehaviour
 
     // 透過処理用
     public CanvasGroup CanGroup;
+
+
+    // カード裏面
+    private Sprite _Ura;
+    private Sprite Ura
+    {
+        get
+        {
+            if (_Ura == null)
+            {
+                _Ura = Resources.Load<Sprite>("Image/ura");
+            }
+            return _Ura;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -66,11 +85,18 @@ public class Card : MonoBehaviour
         this.mIsSelected = false;
 
         // カードを背面表示にする
-        //this.CardImage.sprite = Ura;
+        this.cardImage.texture = Ura.texture;
 
-        cardImage.color = Color.white;
+        this.cardImage.color = Color.white;
         ID_Text.text = "";
 
+    }
+
+    public void OpenCard()
+    {
+        //this.ID_Text.text = (this.ID % (CardManager.Instance.cardMaxSize / 2)).ToString();
+        this.cardImage.texture = null;
+        this.cardImage.color = CardManager.Instance.DefineColorList[this.ID % (CardManager.Instance.cardMaxSize / 2)];
     }
 
     /// <summary>

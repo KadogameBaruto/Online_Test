@@ -49,7 +49,7 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
             if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("TurnPlayerID", out object value))
             {
                 TurnPlayerID = (int)value;
-                ShowFieldInfo(makeFieldInfoString());
+                ShowFieldInfo(MakeFieldInfoString());
             }
 
             AddPoint(0);
@@ -117,13 +117,38 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
         if (IsMyTurn())
         {
             point += val;
-            ShowFieldInfo(makeFieldInfoString());
+            ShowFieldInfo(MakeFieldInfoString());
+
+            var hashTable = new ExitGames.Client.Photon.Hashtable();
+            hashTable["player"+ PhotonNetwork.LocalPlayer.ActorNumber.ToString()] = point;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
         }
     }
 
-    private string makeFieldInfoString()
+    public string GetAllPlayerPointStr()
     {
-        return point.ToString() + "点\r\n" + "TurnPlayerID:" + TurnPlayerID.ToString();
+        string str = "";
+        Player[] player = PhotonNetwork.PlayerList;
+        for (int i = 0; i < player.Length ; i++)
+        {
+            string tmpPlayerName = "player" + player[i].ActorNumber.ToString();
+            int tmpPoint=0;
+            if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(tmpPlayerName, out object value))
+            {
+                tmpPoint = (int)value;
+            }
+
+            str += tmpPlayerName + ":" + tmpPoint + "\r\n";
+        }
+
+        return str;
+    }
+
+    public string MakeFieldInfoString()
+    {
+        return point.ToString() + " point\r\n" +
+               "TurnPlayerID:" + TurnPlayerID.ToString() + "\r\n" +
+               "PlayerList:" + Login.Instance.GetPlayersStr();
     }
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
@@ -134,7 +159,7 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
             if (propertiesThatChanged.TryGetValue("TurnPlayerID", out object value))
             {
                 TurnPlayerID = (int)value;
-                ShowFieldInfo(makeFieldInfoString());
+                ShowFieldInfo(MakeFieldInfoString());
             }
         }            
     }
@@ -150,17 +175,13 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
         {
             // Roomに参加しているプレイヤー情報を配列で取得.
             Player[] player = PhotonNetwork.PlayerList;
-            for (int i = 0; i < player.Length; i++)
-            {
-                Debug.Log((i).ToString() + " : " + " ID = " + player[i].ActorNumber);
-            }
 
             var playerInfo = player.Select((x, indexer) => new { x, indexer })
                                    .Where(e => e.x.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
                                    .FirstOrDefault();
 
             TurnPlayerID = player[(playerInfo.indexer + 1) % player.Length].ActorNumber;
-            ShowFieldInfo(makeFieldInfoString());
+            ShowFieldInfo(MakeFieldInfoString());
 
             var hashTable = new ExitGames.Client.Photon.Hashtable();
             hashTable["TurnPlayerID"] = TurnPlayerID;

@@ -11,9 +11,24 @@ public class GameManager : MonoBehaviour
     // カード生成マネージャクラス
     public CardManager CardCeator;
 
+    //リザルトマネージャー
+    public ResultManager ResultManager;
+
     //表の枚数
     private int OmoteCount = 0;
+    //あたりの枚数
+    private int AtariCount = 0;
 
+    //一致したときの音
+    public AudioSource AtariSound;
+    //一致しなかったときの音
+    public AudioSource HazureSound;
+    //Congratulation音
+    public AudioSource GameClearSound;
+    //めくり音
+    public AudioSource MekuriSound;
+
+    private bool IsAtari;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +47,25 @@ public class GameManager : MonoBehaviour
                 CardManager.Instance.mCoolTime = 0;
                 // カードを裏返す
                 this.CardCeator.HideCards(this.mContainCardIdList);
+
+                if(IsAtari)
+                {
+                    //あたり音発生
+                    AtariSound.PlayOneShot(AtariSound.clip);
+                    AtariCount += 2;
+                }
+                else
+                {
+                    //はずれ音発生
+                    HazureSound.PlayOneShot(HazureSound.clip);
+                }
+
+                if (AtariCount == CardManager.Instance.cardMaxSize)
+                //if(AtariCount == 2)
+                {
+                    ResultManager.gameObject.SetActive(true);
+                }
+
             }
             else
             {
@@ -45,6 +79,9 @@ public class GameManager : MonoBehaviour
             this.CardCeator.OpenCards(CardManager.Instance.SelectedCardIdList);
 
             OmoteCount = CardManager.Instance.SelectedCardIdList.Count;
+
+            //めくり音発生
+            MekuriSound.PlayOneShot(MekuriSound.clip);
         }
 
         // 選択したカードが２枚以上になったら
@@ -60,18 +97,24 @@ public class GameManager : MonoBehaviour
 
                 GamePlayer.Instance.AddPoint(100);
 
+                //あたりフラグ(裏返す際の音で使用)
+                IsAtari = true;
+
             }
             else
             {
                 //カードが一致しなかった場合
                 GamePlayer.Instance.GoNextTurnPlayer();
 
+                //あたりフラグ(裏返す際の音で使用)
+                IsAtari = false;
             }
             
             CardManager.Instance.mCoolTime = 1.0f;
 
             // 選択したカードリストを初期化する
             CardManager.Instance.SelectedCardIdList.Clear();
+            OmoteCount = 0;
         }
     }
 }

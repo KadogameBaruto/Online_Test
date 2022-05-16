@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3330510865183234623}
   - component: {fileID: 4715665486156623334}
   - component: {fileID: 1877319868229279812}
+  - component: {fileID: 5435226893580673815}
   m_Layer: 5
   m_Name: MyCard
   m_TagString: Untagged
@@ -70,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 3a742d0585116cb47a1b37241947ef28, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -90,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID_Text: {fileID: 3040951823462549337}
+  color: {r: 0, g: 0, b: 0, a: 0}
   cardImage: {fileID: 1898406785028880557}
   mIsSelected: 0
   CanGroup: {fileID: 1877319868229279812}
@@ -161,6 +163,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5435226893580673815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898406785028880559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 0
 --- !u!1 &5622006393697317001
 GameObject:
   m_ObjectHideFlags: 0
