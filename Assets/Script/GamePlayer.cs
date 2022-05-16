@@ -104,12 +104,12 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
 
     public void ShowPlayerInfo(string str)
     {
-            pInfo.GetComponent<TextMeshProUGUI>().text = str;
+        pInfo.GetComponent<TextMeshProUGUI>().text = str;
     }
 
     public void ShowFieldInfo(string str)
     {
-            fInfo.GetComponent<TextMeshProUGUI>().text = str;
+        fInfo.GetComponent<TextMeshProUGUI>().text = str;
     }
 
     public void AddPoint(int val)
@@ -171,7 +171,7 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
 
     public void GoNextTurnPlayer()
     {
-        if (IsMyTurn())
+        if (IsMyTurn() && photonView.IsMine)
         {
             // Roomに参加しているプレイヤー情報を配列で取得.
             Player[] player = PhotonNetwork.PlayerList;
@@ -188,5 +188,4 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.CurrentRoom.SetCustomProperties(hashTable);
         }
     }
-
 }
