@@ -33,7 +33,7 @@
 
       document.addEventListener('visibilitychange', function () {
 	    if (document.visibilityState == "hidden") {
-	        unityInstance.SendMessage("LoginManager", "Disconnect");
+	        SendMessage("LoginManager", "Disconnect");
 	    }
 		});
       // Shows a temporary message banner/ribbon for a few seconds, or
