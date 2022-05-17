@@ -31,6 +31,11 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
+      document.addEventListener('visibilitychange', function () {
+	    if (document.visibilityState == "hidden") {
+	        SendMessage("Receiver", "Disconnect");
+	    }
+		});
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
       // If type=='warning', a yellow highlight color is used.
@@ -116,14 +121,9 @@
         });
       };
       document.body.appendChild(script);
-      document.addEventListener('visibilitychange', function () {
-	    if (document.visibilityState == "hidden") {
-	        SendMessage("Receiver", "Disconnect");
-	    }
-		});
     </script>
     
-    2022.05.17 ターン遷移バグを修正(たぶん)
-    2022.05.16 対戦結果を表示、カードの裏面を追加、表面を色に変更、音を追加
+    <p>2022.05.17 ターン遷移バグを修正(たぶん)※裏のタブなど非表示状態だといまだにバグる</p>
+    <p>2022.05.16 対戦結果を表示、カードの裏面を追加、表面を色に変更、音を追加</p>
   </body>
 </html>
