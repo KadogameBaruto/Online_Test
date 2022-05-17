@@ -6,6 +6,14 @@ using Photon.Realtime;
 
 public class Login : MonoBehaviourPunCallbacks
 {
+
+    /*
+     *残件
+     * ルーム
+     * 途中で落ちた場合
+     * 難易度(色の自動作成or部屋によって生成する色を変える
+     *     
+     */
     public static Login Instance;
 
     private int count;
@@ -59,7 +67,8 @@ public class Login : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         // "room"という名前のルームに参加する（ルームが無ければ作成してから参加する）
-        PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions(), TypedLobby.Default);
+        //PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions(), TypedLobby.Default);
+        PhotonNetwork.JoinLobby();
     }
 
     //ルームに入室後に呼び出される
@@ -111,5 +120,14 @@ public class Login : MonoBehaviourPunCallbacks
         str += player[player.Length-1].ActorNumber.ToString()+"}";
 
         return str;
+    }
+
+    public void Disconnect()
+    {
+        if(GamePlayer.Instance.IsMyTurn())
+        {
+            GamePlayer.Instance.GoNextTurnPlayer();
+        }
+        PhotonNetwork.Disconnect();
     }
 }

@@ -45,6 +45,13 @@ public class CardManager : MonoBehaviour
         DefineColorList.Add(new Color(0.0f, 1.0f, 0.0f, 1.0f));
         DefineColorList.Add(new Color(1.0f, 0.0f, 0.0f, 1.0f));
 
+        DefineColorList.Add(new Color(1.0f, 1.0f, 0.5f, 1.0f));
+        DefineColorList.Add(new Color(1.0f, 0.5f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.5f, 1.0f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.5f, 0.5f, 1.0f, 1.0f));
+        DefineColorList.Add(new Color(0.5f, 1.0f, 0.5f, 1.0f));
+        DefineColorList.Add(new Color(1.0f, 0.5f, 0.5f, 1.0f));
+
         DefineColorList.Add(new Color(0.5f, 0.5f, 0.0f, 1.0f));
         DefineColorList.Add(new Color(0.5f, 0.0f, 0.5f, 1.0f));
         DefineColorList.Add(new Color(0.0f, 0.5f, 0.5f, 1.0f));

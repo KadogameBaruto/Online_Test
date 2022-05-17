@@ -116,6 +116,11 @@
         });
       };
       document.body.appendChild(script);
+      document.addEventListener('visibilitychange', function () {
+	    if (document.visibilityState == "hidden") {
+	        SendMessage("Receiver", "Disconnect");
+	    }
+		});
     </script>
     
     2022.05.17 ターン遷移バグを修正(たぶん)
