@@ -81,6 +81,19 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
         CardManager.Instance.SelectedCardIdList.Add(ID);
     }
 
+    public void CheckContinueOrNextTurn()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("CheckContinueOrNextTurn2", RpcTarget.AllBuffered);
+    }
+
+
+    [PunRPC]
+    public void CheckContinueOrNextTurn2()
+    {
+        GameManager.Instance.CheckContinueOrNextTurn();
+    }
+
     void OnGUI()
     {
         //if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))

@@ -29,9 +29,12 @@ public class MatchmakingView : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
+        gameObject.SetActive(true);
+
         // ロビーに参加したら、ルーム参加ボタンを押せるようにする
         canvasGroup.interactable = true;
     }
+
 
     public override void OnRoomListUpdate(List<RoomInfo> changedRoomList)
     {

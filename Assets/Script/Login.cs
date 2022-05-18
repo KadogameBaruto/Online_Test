@@ -18,6 +18,9 @@ public class Login : MonoBehaviourPunCallbacks
 
     private int count;
 
+    [SerializeField]
+    private MatchmakingView matchMaker;
+
     public void resetCount()
     {
         count = 0;
@@ -96,6 +99,12 @@ public class Login : MonoBehaviourPunCallbacks
 
     }
 
+    //ÉãÅ[ÉÄÇ…ì¸é∫å„Ç…åƒÇ—èoÇ≥ÇÍÇÈ
+    public override void OnLeftRoom()
+    {
+        //PhotonNetwork.JoinLobby();
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -106,7 +115,10 @@ public class Login : MonoBehaviourPunCallbacks
         //    count++;
         //}
     }
-
+    public override void OnJoinedLobby()
+    {
+        matchMaker.OnJoinedLobby();
+    }
 
 
     public string GetPlayersStr()
@@ -126,8 +138,8 @@ public class Login : MonoBehaviourPunCallbacks
     {
         if(GamePlayer.Instance.IsMyTurn())
         {
-            GamePlayer.Instance.GoNextTurnPlayer();
+            GamePlayer.Instance.CheckContinueOrNextTurn();
         }
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
     }
 }

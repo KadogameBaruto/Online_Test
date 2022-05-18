@@ -30,10 +30,13 @@ public class GameManager : MonoBehaviour
 
     private bool IsAtari;
 
+    // シングルトンの生成
+    public static GameManager Instance;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -87,34 +90,41 @@ public class GameManager : MonoBehaviour
         // 選択したカードが２枚以上になったら
         if (CardManager.Instance.SelectedCardIdList.Count >= 2)
         {
-            List<int> selectIDList = new List<int>();
-            // 2枚目にあったカードと一緒だったら
-            if (CardManager.Instance.CheckReverseCard(out selectIDList))
-            {
-                //カードが一致した場合
-                // 一致したカードIDを保存する
-                this.mContainCardIdList.AddRange(selectIDList);
-
-                GamePlayer.Instance.AddPoint(100);
-
-                //あたりフラグ(裏返す際の音で使用)
-                IsAtari = true;
-
-            }
-            else
-            {
-                //カードが一致しなかった場合
-                GamePlayer.Instance.GoNextTurnPlayer();
-
-                //あたりフラグ(裏返す際の音で使用)
-                IsAtari = false;
-            }
-            
-            CardManager.Instance.mCoolTime = 1.0f;
-
-            // 選択したカードリストを初期化する
-            CardManager.Instance.SelectedCardIdList.Clear();
-            OmoteCount = 0;
+            CheckContinueOrNextTurn();
         }
     }
+
+    public void CheckContinueOrNextTurn()
+    {
+        List<int> selectIDList = new List<int>();
+        // 2枚目にあったカードと一緒だったら
+        if (CardManager.Instance.CheckReverseCard(out selectIDList))
+        {
+            //カードが一致した場合
+            // 一致したカードIDを保存する
+            this.mContainCardIdList.AddRange(selectIDList);
+
+            GamePlayer.Instance.AddPoint(100);
+
+            //あたりフラグ(裏返す際の音で使用)
+            IsAtari = true;
+
+        }
+        else
+        {
+            //カードが一致しなかった場合
+            GamePlayer.Instance.GoNextTurnPlayer();
+
+            //あたりフラグ(裏返す際の音で使用)
+            IsAtari = false;
+        }
+
+        CardManager.Instance.mCoolTime = 1.0f;
+
+        // 選択したカードリストを初期化する
+        CardManager.Instance.SelectedCardIdList.Clear();
+        OmoteCount = 0;
+
+    }
+
 }
