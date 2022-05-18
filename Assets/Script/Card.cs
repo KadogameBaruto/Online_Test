@@ -90,13 +90,17 @@ public class Card : MonoBehaviour
         this.cardImage.color = Color.white;
         ID_Text.text = "";
 
+
     }
 
+    ///  <summary>
+    /// カードを表表記にする
+    /// </summary>
     public void OpenCard()
     {
         //this.ID_Text.text = (this.ID % (CardManager.Instance.cardMaxSize / 2)).ToString();
-        this.cardImage.texture = null;
-        this.cardImage.color = CardManager.Instance.DefineColorList[this.ID % (CardManager.Instance.cardMaxSize / 2)];
+        //this.cardImage.texture = null;
+        //this.cardImage.color = CardManager.Instance.DefineColorList[this.ID % (CardManager.Instance.cardMaxSize / 2)];
     }
 
     /// <summary>

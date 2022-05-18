@@ -25,6 +25,8 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
     //現在のターンプレイヤーID
     private int TurnPlayerID;//本当はFieldInfoクラスを作ったほうがいい
 
+    public string RoomLevel;
+
     void Start()
     {
         if (photonView.IsMine)

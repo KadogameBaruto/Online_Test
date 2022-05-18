@@ -26,7 +26,7 @@ public class CardManager : MonoBehaviour
     public int SelectID = -1;
 
     //定義済み色リスト
-    public List<Color> DefineColorList = new List<Color>();
+    public List<List<Color>> DefineColorList = new List<List<Color>>();
 
 
     // クールタイム
@@ -38,31 +38,71 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DefineColorList.Add(new Color(1.0f, 1.0f, 0.0f, 1.0f));
-        DefineColorList.Add(new Color(1.0f, 0.0f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 1.0f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 0.0f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 1.0f, 0.0f, 1.0f));
-        DefineColorList.Add(new Color(1.0f, 0.0f, 0.0f, 1.0f));
+        // ---- easy ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+        List<Color> EasyColorList = new List<Color>();
+        EasyColorList.Add(new Color(1.0f, 1.0f, 0.0f, 1.0f));
+        EasyColorList.Add(new Color(1.0f, 0.0f, 1.0f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 1.0f, 1.0f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 0.0f, 1.0f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 1.0f, 0.0f, 1.0f));
+        EasyColorList.Add(new Color(1.0f, 0.0f, 0.0f, 1.0f));
 
-        DefineColorList.Add(new Color(1.0f, 1.0f, 0.5f, 1.0f));
-        DefineColorList.Add(new Color(1.0f, 0.5f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.5f, 1.0f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.5f, 0.5f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.5f, 1.0f, 0.5f, 1.0f));
-        DefineColorList.Add(new Color(1.0f, 0.5f, 0.5f, 1.0f));
+        EasyColorList.Add(new Color(0.5f, 0.5f, 0.0f, 1.0f));
+        EasyColorList.Add(new Color(0.5f, 0.0f, 0.5f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 0.5f, 0.5f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 0.0f, 0.5f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 0.5f, 0.0f, 1.0f));
+        EasyColorList.Add(new Color(0.5f, 0.0f, 0.0f, 1.0f));
 
-        DefineColorList.Add(new Color(0.5f, 0.5f, 0.0f, 1.0f));
-        DefineColorList.Add(new Color(0.5f, 0.0f, 0.5f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 0.5f, 0.5f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 0.0f, 0.5f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 0.5f, 0.0f, 1.0f));
-        DefineColorList.Add(new Color(0.5f, 0.0f, 0.0f, 1.0f));
+        EasyColorList.Add(new Color(1.0f, 1.0f, 1.0f, 1.0f));
+        EasyColorList.Add(new Color(0.66f, 0.66f, 0.66f, 1.0f));
+        EasyColorList.Add(new Color(0.33f, 0.33f, 0.33f, 1.0f));
+        EasyColorList.Add(new Color(0.0f, 0.0f, 0.0f, 1.0f));
+        DefineColorList.Add(EasyColorList);
+        // ---- normal ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+        List<Color> NormalColorList = new List<Color>();
+        NormalColorList.Add(new Color(0.8f, 0.8f, 0.8f, 1.0f));
+        NormalColorList.Add(new Color(0.6f, 0.6f, 0.6f, 1.0f));
+        NormalColorList.Add(new Color(0.4f, 0.4f, 0.4f, 1.0f));
+        NormalColorList.Add(new Color(0.2f, 0.2f, 0.2f, 1.0f));
 
-        DefineColorList.Add(new Color(1.0f, 1.0f, 1.0f, 1.0f));
-        DefineColorList.Add(new Color(0.66f, 0.66f, 0.66f, 1.0f));
-        DefineColorList.Add(new Color(0.33f, 0.33f, 0.33f, 1.0f));
-        DefineColorList.Add(new Color(0.0f, 0.0f, 0.0f, 1.0f));
+        NormalColorList.Add(new Color(1.0f, 0.8f, 0.8f, 1.0f));
+        NormalColorList.Add(new Color(1.0f, 0.6f, 0.6f, 1.0f));
+        NormalColorList.Add(new Color(1.0f, 0.4f, 0.4f, 1.0f));
+        NormalColorList.Add(new Color(1.0f, 0.2f, 0.2f, 1.0f));
+
+        NormalColorList.Add(new Color(0.8f, 1.0f, 0.8f, 1.0f));
+        NormalColorList.Add(new Color(0.6f, 1.0f, 0.6f, 1.0f));
+        NormalColorList.Add(new Color(0.4f, 1.0f, 0.4f, 1.0f));
+        NormalColorList.Add(new Color(0.2f, 1.0f, 0.2f, 1.0f));
+
+        NormalColorList.Add(new Color(0.8f, 0.8f, 1.0f, 1.0f));
+        NormalColorList.Add(new Color(0.6f, 0.6f, 1.0f, 1.0f));
+        NormalColorList.Add(new Color(0.4f, 0.4f, 1.0f, 1.0f));
+        NormalColorList.Add(new Color(0.2f, 0.2f, 1.0f, 1.0f));
+
+
+        //for (int i = 0; i < cardMaxSize / 2; i++)
+        //{
+        //    NormalColorList.Add(new Color(1.0f, (float)1.0 / ((i % 4) + 1), (float)1.0 / ((i / 4) +1), 1.0f));
+        //}
+        DefineColorList.Add(NormalColorList);
+        // ---- hard ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+        List<Color> HardColorList = new List<Color>();
+
+        for (int i = 0; i < cardMaxSize / 2; i++)
+        {
+            HardColorList.Add(new Color((float)1.0 / i, (float)1.0 / i, (float)1.0 / i, 1.0f));
+        }
+        DefineColorList.Add(HardColorList);
+
+
+        //tmpDefineColorList.Add(new Color(1.0f, 1.0f, 0.5f, 1.0f));
+        //tmpDefineColorList.Add(new Color(1.0f, 0.5f, 1.0f, 1.0f));
+        //tmpDefineColorList.Add(new Color(0.5f, 1.0f, 1.0f, 1.0f));
+        //tmpDefineColorList.Add(new Color(0.5f, 0.5f, 1.0f, 1.0f));
+        //tmpDefineColorList.Add(new Color(0.5f, 1.0f, 0.5f, 1.0f));
+        //tmpDefineColorList.Add(new Color(1.0f, 0.5f, 0.5f, 1.0f));
 
 
         // カードオブジェクトを生成する
@@ -110,13 +150,15 @@ public class CardManager : MonoBehaviour
     }
 
     //カードを表返す処理
-    public void OpenCards(List<int> containCardIdList)
+    public void OpenCards(List<int> containCardIdList,int gameLevel)
     {
         foreach (var _card in this.CardList)
         {
             if (containCardIdList.Contains(_card.ID))
             {
-                _card.OpenCard();
+                //_card.OpenCard();
+                _card.cardImage.texture = null;
+                _card.cardImage.color = DefineColorList[gameLevel][_card.ID % (CardManager.Instance.cardMaxSize / 2)];
             }
         }
     }

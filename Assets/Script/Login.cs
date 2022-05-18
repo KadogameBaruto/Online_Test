@@ -95,9 +95,8 @@ public class Login : MonoBehaviourPunCallbacks
         //プレイヤーを生成
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
 
-
-
     }
+
 
     //ルームに入室後に呼び出される
     public override void OnLeftRoom()
@@ -141,5 +140,30 @@ public class Login : MonoBehaviourPunCallbacks
             GamePlayer.Instance.CheckContinueOrNextTurn();
         }
         PhotonNetwork.LeaveRoom();
+    }
+
+    public int GetGameLevel()
+    {
+        string roomName = PhotonNetwork.CurrentRoom.Name;
+        Debug.Log(roomName);
+
+        if(roomName =="Room1")
+        {
+            return 0;
+        }
+        else
+        {
+            if (roomName == "Room2")
+            {
+                return 1;
+
+            }
+            else
+            {
+                return 2;
+
+            }
+        }
+
     }
 }

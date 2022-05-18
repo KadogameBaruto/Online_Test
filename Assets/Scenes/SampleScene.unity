@@ -2105,7 +2105,7 @@ GameObject:
   - component: {fileID: 1587013780}
   - component: {fileID: 1587013779}
   m_Layer: 0
-  m_Name: Image
+  m_Name: TitleImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2999,7 +2999,6 @@ MonoBehaviour:
   CardParent: {fileID: 1243472148}
   SelectedCardIdList: 
   SelectID: -1
-  DefineColorList: []
   mCoolTime: 0
 --- !u!4 &1920350555
 Transform:

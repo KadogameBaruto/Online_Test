@@ -78,8 +78,9 @@ public class GameManager : MonoBehaviour
 
         if(OmoteCount != CardManager.Instance.SelectedCardIdList.Count)
         {
+
             // カードを表返す
-            this.CardCeator.OpenCards(CardManager.Instance.SelectedCardIdList);
+            this.CardCeator.OpenCards(CardManager.Instance.SelectedCardIdList,Login.Instance.GetGameLevel());
 
             OmoteCount = CardManager.Instance.SelectedCardIdList.Count;
 
