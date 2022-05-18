@@ -81,6 +81,7 @@ public class GamePlayer : MonoBehaviourPunCallbacks, IPunObservable
         CardManager.Instance.SelectedCardIdList.Add(ID);
     }
 
+
     public void CheckContinueOrNextTurn()
     {
         PhotonView photonView = PhotonView.Get(this);
